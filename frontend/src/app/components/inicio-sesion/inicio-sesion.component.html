@@ -1,0 +1,46 @@
+@if (!isLoggedIn) {
+    <h1>Entrega-Express!!!</h1>
+<div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Inicio de sesión</h3>
+                        <form id="formlogin" (submit)="onSubmit()">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario:</label>
+                                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña:</label>
+                                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required>
+                            </div>
+                            <div class="text-center d-grid gap-2">
+                                <button (click)="iniciarSesion()" type="submit" class="btn btn-primary ">Iniciar sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+} @else {
+
+    @switch (rol) {
+        @case (1) {
+            <app-administrador isLoggedIn="{{isLoggedIn}}" (estadoCambiado)="cambiarEstado($event)" [empleadoLogeado]="empleadoLogeado">
+            </app-administrador>
+        }
+        @case (2) {
+            <app-operador isLoggedIn="{{isLoggedIn}}" (estadoCambiado)="cambiarEstado($event)" [empleadoLogeado]="empleadoLogeado">
+            </app-operador>
+        }
+        @case (3) {
+            <app-recepcionista isLoggedIn="{{isLoggedIn}}" (estadoCambiado)="cambiarEstado($event)" [empleadoLogeado]="empleadoLogeado">
+            </app-recepcionista>
+        }
+    }
+}

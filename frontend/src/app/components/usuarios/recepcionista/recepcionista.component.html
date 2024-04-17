@@ -1,0 +1,53 @@
+<div class="barra">
+    <nav class="navbar sticky-top bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand">Recepcionista</a>
+            <a class="navbar-brand" type="button" (click)="cerrarSesion()">Cerrar Sesion</a>
+        </div>
+    </nav>
+</div>
+
+
+<h3 class="bienvenida">Bienvenido: {{this.empleadoLogeado.nombre}}</h3>
+<div class="comboBox">
+    <select class="form-select" aria-label="Default select example" (change)="getSelect($event)">
+        <option value="0" selected>Selecciona una de las opciones disponibles</option>
+        <option value="1">Registrar Ingreso De Paquete</option>
+        <option value="2">Registrar Llegada De Paquete</option>
+        <option value="3">Registrar Retiro De Paquete</option>
+        <option value="4">Generar Factura</option>
+        <option value="5">Crear Cliente</option>
+        <option value="6">Ver Listado De Paquetes Llegados A Destino Sin Recoger</option>
+        <option value="7">Consultar Ubicación De Paquete</option>
+    </select>
+</div>
+
+@switch (valorSeleccionado) {
+    @case (0) {
+        <div class="divImg">
+           <img class="imagen" src="assets/imagenes/recepcionista.png">
+        </div>
+    }
+    @case (1) {
+        <app-ingreso-paquete></app-ingreso-paquete>
+    }
+    @case (2) {
+        <app-llegada-paquete></app-llegada-paquete>
+    }
+    @case (3) {
+        <app-retiro-paquete></app-retiro-paquete>
+    }
+    @case (4) {
+        <app-generar-factura></app-generar-factura>
+    }
+    @case (5) {
+        <app-crear-cliente></app-crear-cliente>
+    }
+    @case (6) {
+        <app-listado-arecoger></app-listado-arecoger>
+    }
+    @case (7) {
+        <app-ubicacion-paquete></app-ubicacion-paquete>
+    }
+}
+

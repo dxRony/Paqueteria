@@ -1,0 +1,73 @@
+<div class="barra">
+    <nav class="navbar sticky-top bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">Administrador</a>
+        <a class="navbar-brand" type="button" (click)="cerrarSesion()">Cerrar Sesion</a>
+    </div>
+</nav>
+</div>
+
+<h3 class="bienvenida">Bienvenido: {{this.empleadoLogeado.nombre}}</h3>
+<div class="comboBox">
+    <select class="form-select" aria-label="Default select example" (change)="getSelect1($event)" (change)="valorSeleccionado2=0">
+        <option  value="0" selected>Selecciona una de las opciones disponibles</option>
+        <option value="1">Crear Ruta</option>
+        <option value="2">Crear/Agregar Puntos De Control</option>
+        <option value="3">Quitar Puntos De Control</option>
+        <option value="4">Desactivar Ruta</option>        
+        <option value="5">Desactivar Usuario</option>
+        <option value="6">Modificar Parametros Del Sistema</option>
+    </select>
+</div>
+
+@switch (valorSeleccionado1) {
+    @case (0) {
+        <div class="divImg">
+            <img class="imagen" src="assets/imagenes/administrador.png">
+        </div>   
+    }
+    @case (1) {
+        <app-crear-ruta ></app-crear-ruta>
+    }
+    @case (2) {
+        <app-agregar-puntos></app-agregar-puntos>
+    }
+    @case (3) {
+        <app-quitar-puntos-control></app-quitar-puntos-control>
+    } 
+    @case (4) {
+        <app-desactivar-ruta></app-desactivar-ruta>        
+    }
+    @case (5) {
+        <app-desactivar-usuario></app-desactivar-usuario>        
+    }
+    @case (6) {
+        <app-modificar-precio></app-modificar-precio>
+    }
+}
+<br>
+<br>
+<div class="comboBox">
+    <select class="form-select" aria-label="Default select example" (change)="getSelect2($event)" (change)="valorSeleccionado1=0">
+        <option selected>Selecciona uno de los reportes a ver</option>
+        <option value="1">Paquetes En Ruta</option>
+        <option value="2">Ganancias En Intervalo De Tiempo</option>
+        <option value="3">Clientes</option>
+        <option value="4">Rutas Mas Populares</option>
+    </select>
+</div>
+
+@switch (valorSeleccionado2) {
+    @case (1) {
+        <app-reporte1></app-reporte1>
+    }
+    @case (2) {
+        <app-reporte2></app-reporte2>
+    }
+    @case (3) {
+        <app-reporte3></app-reporte3>
+    }
+    @case (4) {
+        <app-reporte4></app-reporte4>
+    }
+}

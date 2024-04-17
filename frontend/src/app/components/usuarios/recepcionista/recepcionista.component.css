@@ -1,0 +1,36 @@
+.bienvenida{
+    text-align: center;
+    font-family: sans-serif;
+    color: antiquewhite;
+}
+
+.barra{
+    background-color: black;
+}
+
+a{
+    color: white;
+}
+.form-select{
+    width: auto;  
+    font-family: sans-serif;
+    background-color: rgb(235, 153, 31);
+    color: black;
+    margin: 0 auto;
+    display: block;
+}
+
+.comboBox{
+    text-align: center;
+}
+.imagen{
+    width: 250px;
+    height: 250px;
+}
+
+.divImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}

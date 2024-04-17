@@ -1,0 +1,29 @@
+<div class="barra">
+    <nav class="navbar sticky-top bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand">Operador</a>
+            <a class="navbar-brand" type="button" (click)="cerrarSesion()">Cerrar Sesion</a>
+        </div>
+    </nav>
+</div>
+
+
+<h3 class="bienvenida">Bienvenido: {{this.empleadoLogeado.nombre}}</h3>
+<div class="comboBox">
+    <select class="form-select" aria-label="Default select example" (change)="getSelect($event)">
+        <option value ="0" selected>Selecciona una de las opciones disponibles</option>
+        <option value="1">Procesar Paquete</option>    
+    </select>
+</div>
+
+@switch (valorSeleccionado) {
+    @case (0) {
+        <br>
+        <div class="divImg">
+            <img class="imagen" src="assets/imagenes/operador.png">
+        </div>
+    }
+    @case (1) {
+        <app-procesar-paquete></app-procesar-paquete>
+    }
+}

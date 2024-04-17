@@ -1,0 +1,15 @@
+
+h1{
+    text-align: center;
+    font-family: sans-serif;
+    color: antiquewhite;
+}
+
+.card{
+    background-color: rgb(226, 132, 9);    
+}
+
+.btn-primary{
+    background-color: brown;
+    
+}
