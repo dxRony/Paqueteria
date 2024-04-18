@@ -22,6 +22,7 @@ import model.Sistema;
 import services.ColaEsperaService;
 import services.PuntoDeControlService;
 import services.SistemaService;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -35,6 +36,7 @@ public class PuntoDeControlServlet extends HttpServlet {
     private ColaEsperaService colaService = new ColaEsperaService();
     private CargarColas cargarColas = new CargarColas();
     private SistemaService sistemaService = new SistemaService();
+    private GsonUtils<PuntoDeControl> gsonPunto = new GsonUtils<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//obtenerRecurso
@@ -72,26 +74,32 @@ public class PuntoDeControlServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//guardar/crear recurso
 
         try {
-            Gson gson = new Gson();
-            PuntoDeControl punto = gson.fromJson(req.getReader(), PuntoDeControl.class);
-            if (punto.getTarifaOperacion() == 0) {
+            PuntoDeControl puntoRecibido = gsonPunto.readFromJson(req, PuntoDeControl.class);
+            System.out.println("punto recibido" + puntoRecibido.toString());
+
+            if (puntoRecibido.getTarifaOperacion() == 0) {
                 Sistema sistema = sistemaService.getSistemaById(1);
                 int tarifaOperacionGlobal = sistema.getTarifaOperacionGlobal();
-                punto.setTarifaOperacion(tarifaOperacionGlobal);
+                puntoRecibido.setTarifaOperacion(tarifaOperacionGlobal);
             }
-            this.sendResponse(resp, puntoService.crearPuntoDeControl(punto));
+            puntoRecibido.setLibre(true);
+            PuntoDeControl puntoCreado = puntoService.crearPuntoDeControl(puntoRecibido);
+            
+            gsonPunto.sendAsJson(resp, puntoCreado);
+            resp.setStatus(HttpServletResponse.SC_OK);
+            System.out.println("punto enviado = " + puntoCreado.toString());
 
             //creando cola en base de datos
             ColaEspera cola = new ColaEspera();
-            cola.setIdPuntoDeControl(punto.getId());
-            cola.setIdRuta(punto.getIdRuta());
-            cola.setCantidadMaximaPaquetes(punto.getCantidadMaximaPaquetes());
-            cola.setNombreCola(punto.getIdRuta() + "-" + punto.getId());
+            cola.setIdPuntoDeControl(puntoRecibido.getId());
+            cola.setIdRuta(puntoRecibido.getIdRuta());
+            cola.setCantidadMaximaPaquetes(puntoRecibido.getCantidadMaximaPaquetes());
+            cola.setNombreCola(puntoRecibido.getIdRuta() + "-" + puntoRecibido.getId());
             colaService.crearCola(cola);
 
             //creando lista para contener los paquetes de la cola
             ArrayList<Paquete> colaNueva = new ArrayList<>();
-            AlmacenColas.agregarCola("" + punto.getId(), colaNueva);
+            AlmacenColas.agregarCola("" + puntoRecibido.getId(), colaNueva);
 
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);

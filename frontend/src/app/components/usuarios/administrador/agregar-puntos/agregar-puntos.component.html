@@ -3,25 +3,25 @@
 
 <div class="form">
     <h3 class="h31">Agrega Puntos De Control A Una Ruta</h3>
-    <form class="g-3">
+    <form class="g-3" id="form" (submit)="onSubmit()">
         <div class="col-md-6">
             <label class="form-label">Ruta A La Que Pertenece:</label>
-            <input type="number" class="form-control" id="idRuta" min="1">
+            <input type="number" class="form-control" id="idRuta" min="1" name="idRuta" [(ngModel)]="formData.idRuta" required>
         </div>
         <div class="col-md-6">
             <label class="form-label1">Empleado Encargado:</label>
-            <input type="number" class="form-control" id="idEmpleado" min="1">
+            <input type="number" class="form-control" id="idEmpleado" min="1" name="idEmpleado" [(ngModel)]="formData.idEmpleado" required>
         </div>
         <div class="col-md-6">
-            <label class="form-label1">Tarifa De Operacion(Dejar vacio para usar la tarifa de operacion globla):</label>
-            <input type="number" class="form-control" id="tarifaOperacion" min="1">
+            <label class="form-label1">Tarifa De Operacion(Dejar vacio seleccion la tarifa de operacion global):</label>
+            <input type="number" class="form-control" id="tarifaOperacion" min="1" name="tarifaOperacion"  [(ngModel)]="formData.tarifaOperacion">
         </div>
         <div class="col-md-6">
             <label class="form-label1">Cantidad Máxima De Paquetes:</label>
-            <input type="number" class="form-control" id="cantidadMaximaPaquetes" min="1">
+            <input type="number" class="form-control" id="cantidadMaximaPaquetes" min="1" name="cantidadMaximaPaquetes" [(ngModel)]="formData.cantidadMaxima">
         </div>
         <div class="col-12">
-            <button type="submit" class="btnCrear">Crear Punto De Control</button>
+            <button (click)="crearPuntoDeControl()" type="submit" class="btnCrear">Crear Punto De Control</button>
         </div>        
     </form>
 </div>

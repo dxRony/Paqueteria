@@ -16,12 +16,17 @@ import { Router } from '@angular/router';
 })
 export class InicioSesionComponent {
 
+
+  constructor(private empleadoService: EmpleadoService, private router: Router) {
+    this.empleado = new Empleado();
+  } 
+  
   empleado !: Empleado;
   empleadoLogeado!: Empleado;
-
   isLoggedIn: boolean = false;
   rol = 7;
   nombre = '';
+
   formData = {
     username: '',
     password: ''
@@ -40,9 +45,6 @@ export class InicioSesionComponent {
     return this.loginForm.get('password') as FormControl;
   }
 
-  constructor(private empleadoService: EmpleadoService, private router: Router) {
-    this.empleado = new Empleado();
-  }
 
   onSubmit() {
     console.log("datos del form: ", this.formData);

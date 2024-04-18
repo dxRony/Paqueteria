@@ -1,15 +1,14 @@
 <br>
 <br>
-
 <div class="form">
     <h3 class="h31">Crea Una Ruta</h3>
     <form class="g-3" id="form" (submit)="onSubmit()">
         <div class="col-md-6">
             <label class="form-label1">Destino De La Ruta:</label>
-            <input type="number" class="form-control" id="idDestino" min="1">
+            <input type="number" class="form-control" id="idDestino" name="idDestino" min="1" [(ngModel)]="formData.idDestino" required>
         </div>
         <div class="col-12">
-            <button type="submit" id="btnCrear" (click)="crearRuta()">Crear Ruta</button>
+            <button (click)="crearRuta()" type="submit" id="btnCrear" >Crear Ruta</button>
         </div>
     </form>
 </div>

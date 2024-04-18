@@ -77,4 +77,11 @@ public class PuntoDeControl {
         this.cantidadMaximaPaquetes = cantidadMaximaPaquetes;
     }
 
+    @Override
+    public String toString() {
+        return "PuntoDeControl{" + "id=" + id + ", idRuta=" + idRuta + ", idEmpleado=" + idEmpleado + ", tarifaOperacion=" + tarifaOperacion + ", libre=" + libre + ", cantidadMaximaPaquetes=" + cantidadMaximaPaquetes + '}';
+    }
+    
+    
+
 }

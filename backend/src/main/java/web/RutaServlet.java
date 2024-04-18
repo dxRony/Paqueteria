@@ -57,14 +57,13 @@ public class RutaServlet extends HttpServlet {
             System.out.println("rutaRecibida = " + rutaRecibida.toString());
 
             if (rutaRecibida.getIdDestino() == 0) {
-                this.sendResponse(resp, "destino no valido");
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             } else {
                 Ruta rutaCreada = rutaService.crearRuta(rutaRecibida);
-                this.sendResponse(resp, "ruta creada correctamente");
                 resp.setStatus(HttpServletResponse.SC_OK);
+
                 gsonRuta.sendAsJson(resp, rutaCreada);
-                System.out.println("rutaCreada = " + rutaCreada.toString());
+                System.out.println("Ruta enviada = " + rutaCreada.toString());
             }
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);

@@ -32,7 +32,7 @@ export class EmpleadoService {
         return this.http.delete<Empleado>(`${this.url}/empleados/${id}`);
     }
 
-    iniciarSesion(empleado:Empleado){
+    iniciarSesion(empleado: Empleado) {
         return this.http.post<Empleado>(`${this.url}/login`, empleado);
     }
 }
