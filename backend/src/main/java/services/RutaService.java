@@ -8,6 +8,7 @@ import data.RutaDB;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Ruta;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -17,6 +18,8 @@ import util.PaqueteriaApiException;
 public class RutaService {
 
     private RutaDB rutaDB = new RutaDB();
+        private GsonUtils<Ruta> gsonRuta = new GsonUtils<>();
+    
 
     public List<Ruta> getRutas() {
         return rutaDB.getRutas();
@@ -40,6 +43,9 @@ public class RutaService {
         if (ruta.getIdDestino() <= 0) {//campos vacios
             throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_BAD_REQUEST).mensaje("Complete los campos").build();
         }
+        ruta.setActiva(true);
+        ruta.setCantidadTotalPaquetes(0);
+        ruta.setConcurrencia(0);
         return rutaDB.crear(ruta);
     }
 

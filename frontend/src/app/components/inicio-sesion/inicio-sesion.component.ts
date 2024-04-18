@@ -55,7 +55,8 @@ export class InicioSesionComponent {
 
     console.log("username = " + this.empleado.username + ", password = " + this.empleado.password);
 
-    this.empleadoService.iniciarSesion(this.empleado).subscribe(loggedEmpleado => {
+    this.empleadoService.iniciarSesion(this.empleado).
+    subscribe(loggedEmpleado => {
         if (loggedEmpleado) {
           this.empleadoLogeado = loggedEmpleado;
           this.isLoggedIn = true;
@@ -70,7 +71,6 @@ export class InicioSesionComponent {
       }, error => {
         console.log('error al buscar');
       }
-
       );
   }
 

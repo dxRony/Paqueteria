@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Ruta;
 import services.RutaService;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -24,6 +25,7 @@ import util.PaqueteriaApiException;
 public class RutaServlet extends HttpServlet {
 
     private RutaService rutaService = new RutaService();
+    private GsonUtils<Ruta> gsonRuta = new GsonUtils<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//obtenerRecurso
@@ -51,9 +53,19 @@ public class RutaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//guardar/crear recurso
 
         try {
-            Gson gson = new Gson();
-            Ruta ruta = gson.fromJson(req.getReader(), Ruta.class);
-            this.sendResponse(resp, rutaService.crearRuta(ruta));
+            Ruta rutaRecibida = gsonRuta.readFromJson(req, Ruta.class);
+            System.out.println("rutaRecibida = " + rutaRecibida.toString());
+
+            if (rutaRecibida.getIdDestino() == 0) {
+                this.sendResponse(resp, "destino no valido");
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            } else {
+                Ruta rutaCreada = rutaService.crearRuta(rutaRecibida);
+                this.sendResponse(resp, "ruta creada correctamente");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                gsonRuta.sendAsJson(resp, rutaCreada);
+                System.out.println("rutaCreada = " + rutaCreada.toString());
+            }
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

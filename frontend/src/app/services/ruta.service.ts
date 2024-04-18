@@ -6,7 +6,7 @@ import { Ruta } from "../model/ruta";
     providedIn: 'root'
 })
 
-export class RutaSerice{
+export class RutaService{
     url: string = 'http://localhost:8080/PaqueteriaApi';
 
     constructor(private http: HttpClient) { }
