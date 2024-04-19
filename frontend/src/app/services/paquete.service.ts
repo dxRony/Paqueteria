@@ -7,7 +7,7 @@ import { Paquete } from "../model/paquete";
 })
 
 
-export class PaqueteService{
+export class PaqueteService {
     url: string = 'http://localhost:8080/PaqueteriaApi';
 
     constructor(private http: HttpClient) { }
@@ -30,5 +30,10 @@ export class PaqueteService{
 
     eliminarPaquete(id: number) {
         return this.http.delete<Paquete>(`${this.url}/paquetes/${id}`);
+    }
+
+    operarPaquete(idPaquete: number, tiempo: number) {
+        return this.http.get<Paquete>(`${this.url}/operarPaquete?parametros=${idPaquete}_${tiempo}`);
+
     }
 }

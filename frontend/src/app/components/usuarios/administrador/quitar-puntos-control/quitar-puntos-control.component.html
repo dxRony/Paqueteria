@@ -3,17 +3,18 @@
 
 <div class="form">
     <h3 class="h31">Quita Puntos De Control De Una Ruta</h3>
-    <form class="g-3">
+    <form class="g-3" (submit)="onSubmit()">
         <div class="col-md-6">
             <label class="form-label">Ruta:</label>
-            <input type="number" class="form-control" id="idRuta" min="1">
+            <input type="number" class="form-control" id="idRuta" min="1" name="idRuta" [(ngModel)]="formData.idRuta" required>
         </div>
         <div class="col-md-6">
             <label class="form-label">PuntoDeControl:</label>
-            <input type="number" class="form-control" id="idPuntoDeControl" min="1">
+            <input type="number" class="form-control" id="idPuntoDeControl" min="1" name="idPuntoDeControl"
+                [(ngModel)]="formData.idPuntoDeControl" required>
         </div>
         <div class="col-12">
-            <button type="submit" class="btnQuitar">Quitar Punto De Control</button>
+            <button (click)="quitarPuntoDeControl()" type="submit" class="btnQuitar">Quitar Punto De Control</button>
         </div>
     </form>
 </div>

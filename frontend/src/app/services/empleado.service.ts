@@ -28,6 +28,10 @@ export class EmpleadoService {
         return this.http.put<Empleado>(`${this.url}/empleados`, empleado);
     }
 
+    desactivarEmpleado(idEmpleado: number){
+        return this.http.get<Empleado>(`${this.url}/desactivarEmpleado/${idEmpleado}`);
+    }
+
     eliminarEmpleado(id: number) {
         return this.http.delete<Empleado>(`${this.url}/empleados/${id}`);
     }

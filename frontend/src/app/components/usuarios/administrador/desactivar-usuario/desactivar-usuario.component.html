@@ -3,13 +3,13 @@
 
 <div class="form">
     <h3 class="h31">Desactiva Un Usuario</h3>
-    <form class="g-3">
+    <form class="g-3" id="form" (submit)="onSubmit()">
         <div class="col-md-6">
             <label class="form-label">Usuario(solo Operadores y Recepcionistas):</label>
-            <input type="number" class="form-control" id="idUsuario" min="1">
+            <input type="number" class="form-control" id="idUsuario" min="1" name="idEmpleado" [(ngModel)]="FormData.idEmpleado" required>
         </div>
         <div class="col-12">
-            <button type="submit" class="btnDesactivar">Desactivar</button>
+            <button (click)="desactivarUsuario()" type="submit" class="btnDesactivar">Desactivar</button>
         </div>
     </form>
 </div>

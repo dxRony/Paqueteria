@@ -27,7 +27,9 @@ export class PuntoDeControlService {
         return this.http.put<PuntoDeControl>(`${this.url}/puntos`, puntoDeControl);
     }
 
-    eliminarPuntoDeControl(id: number) {
-        return this.http.delete<PuntoDeControl>(`${this.url}/puntos/${id}`);
+    eliminarPuntoDeControl(idRuta: number, idPuntoDeControl: number) {
+        console.log('idRuta = '+idRuta);
+        console.log('idPuntoDeControl'+ idPuntoDeControl);
+        return this.http.delete<PuntoDeControl>(`${this.url}/quitarPuntos?parametros=${idRuta}_${idPuntoDeControl}`);
     }
 }

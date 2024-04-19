@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-6">
             <label class="form-label1">Cantidad Máxima De Paquetes:</label>
-            <input type="number" class="form-control" id="cantidadMaximaPaquetes" min="1" name="cantidadMaximaPaquetes" [(ngModel)]="formData.cantidadMaxima">
+            <input type="number" class="form-control" id="cantidadMaximaPaquetes" min="1" name="cantidadMaximaPaquetes" [(ngModel)]="formData.cantidadMaxima" required>
         </div>
         <div class="col-12">
             <button (click)="crearPuntoDeControl()" type="submit" class="btnCrear">Crear Punto De Control</button>

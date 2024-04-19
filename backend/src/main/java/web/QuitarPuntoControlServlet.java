@@ -21,7 +21,7 @@ import util.PaqueteriaApiException;
  *
  * @author ronyrojas
  */
-@WebServlet(name = "QuitarPuntoControlServlet", urlPatterns = "/quitarPuntos/*")//idRuta/idPuntoDeControl
+@WebServlet(name = "QuitarPuntoControlServlet", urlPatterns = "/quitarPuntos")//quitarPuntos?parametros=idRuta_idPuntoDeControl
 public class QuitarPuntoControlServlet extends HttpServlet {
 
     private PuntoDeControlService puntoService = new PuntoDeControlService();
@@ -32,22 +32,25 @@ public class QuitarPuntoControlServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            String pathInfo = req.getPathInfo();
+            String urlParam = req.getParameter("parametros");
 
-            String[] info = pathInfo.split("/");
+            String[] params = urlParam.split("_");
+            String idRutaString = params[0];
+            String idPuntoDeControlString = params[1];
 
+            int idRuta = Integer.parseInt(idRutaString);
+            System.out.println("idRuta de url = " + idRuta);
+            int idPuntoDeControl = Integer.parseInt(idPuntoDeControlString);
+            System.out.println("idPuntoDeControl de url = " + idPuntoDeControl);
+            
+            String nombreCola = params[0] + "-" + params[1];
             String mensaje = "";
-            if (info.length >= 3) {
-                int idRuta = Integer.parseInt(info[1]);
-                int idPuntoControl = Integer.parseInt(info[2]);
-                String nombreCola = info[1] + "-" + info[2];
 
-                mensaje = quitarPuntoService.quitarPuntoDeControl(idRuta, idPuntoControl, nombreCola);
-                this.sendResponse(resp, mensaje);
-            } else {
-                throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_BAD_REQUEST).mensaje("Id requerido").build();
+            mensaje = quitarPuntoService.quitarPuntoDeControl(idRuta, idPuntoDeControl, nombreCola);
 
-            }
+            resp.setStatus(HttpServletResponse.SC_OK);
+            
+           // this.sendResponse(resp, mensaje);
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

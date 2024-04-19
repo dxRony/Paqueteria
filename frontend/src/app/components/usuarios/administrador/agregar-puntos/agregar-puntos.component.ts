@@ -61,12 +61,12 @@ export class AgregarPuntosComponent {
           this.formData.idEmpleado = '';
           this.formData.tarifaOperacion = '';
           this.formData.cantidadMaxima = '';
-        } else{
+        } else {
           alert('error al crear el punto de control');
         }
       }, error => {
         alert('error al crear el punto de control');
       }
-    );
+      );
   }
 }

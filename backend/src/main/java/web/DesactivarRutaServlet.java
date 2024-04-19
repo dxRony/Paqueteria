@@ -41,8 +41,9 @@ public class DesactivarRutaServlet extends HttpServlet {
 
                 ruta = rutaService.getRutaById(Integer.parseInt(pathParam));
                 mensaje = desactivarRutaService.desactivarRuta(ruta);
+                resp.setStatus(HttpServletResponse.SC_OK);
             }
-            this.sendResponse(resp, mensaje + ruta);
+            
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

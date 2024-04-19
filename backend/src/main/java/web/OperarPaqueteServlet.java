@@ -24,7 +24,7 @@ import util.PaqueteriaApiException;
  *
  * @author ronyrojas
  */
-@WebServlet(name = "OperarPaqueteServlet", urlPatterns = "/operarPaquete/*")
+@WebServlet(name = "OperarPaqueteServlet", urlPatterns = "/operarPaquete")//operarPaquete?parametros=idPaquete_tiempo
 public class OperarPaqueteServlet extends HttpServlet {
 
     private PaqueteService paqueteService = new PaqueteService();
@@ -38,19 +38,21 @@ public class OperarPaqueteServlet extends HttpServlet {
 
         String mensaje = "";
         try {
-            String pathInfo = req.getPathInfo();
-            String[] info = pathInfo.split("/");
-            //idPaquete/tiempo
-            if (info.length >= 3) {
+            String urlParam = req.getParameter("parametros");
 
-                //verificar si el siguiente punto de control tiene espacio
-                int idPaquete = Integer.parseInt(info[1]);//id del paquete
-                int tiempo = Integer.parseInt(info[2]);//tiempo que el paquete estuvo en el puntoDeControlActual
+            String[] params = urlParam.split("_");
 
-                mensaje = operarPaqueteService.operarPaquete(idPaquete, tiempo);
-            }
+            String idPaqueteString = params[0];
+            String tiempoString = params[1];
 
-            this.sendResponse(resp, mensaje);
+            int idPaquete = Integer.parseInt(idPaqueteString);
+            System.out.println("idPaquete = " + idPaquete);
+            int tiempo = Integer.parseInt(tiempoString);
+            System.out.println("tiempo = " + tiempo);
+
+            mensaje = operarPaqueteService.operarPaquete(idPaquete, tiempo);
+
+            resp.setStatus(HttpServletResponse.SC_OK);
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

@@ -6,7 +6,7 @@ import { Ruta } from "../model/ruta";
     providedIn: 'root'
 })
 
-export class RutaService{
+export class RutaService {
     url: string = 'http://localhost:8080/PaqueteriaApi';
 
     constructor(private http: HttpClient) { }
@@ -25,6 +25,10 @@ export class RutaService{
 
     actualizarRuta(ruta: Ruta) {
         return this.http.put<Ruta>(`${this.url}/rutas`, ruta);
+    }
+
+    desactivarRuta(idRuta: number) {
+        return this.http.get<Ruta>(`${this.url}/desactivarRuta/${idRuta}`);
     }
 
     eliminarRuta(id: number) {

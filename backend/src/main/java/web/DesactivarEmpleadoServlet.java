@@ -23,13 +23,13 @@ import util.PaqueteriaApiException;
  */
 @WebServlet(name = "DesactivarEmpleadoServlet", urlPatterns = "/desactivarEmpleado/*")
 public class DesactivarEmpleadoServlet extends HttpServlet {
-
+    
     private EmpleadoService empleadoService = new EmpleadoService();
     private DesactivarEmpleadoService desactivarService = new DesactivarEmpleadoService();
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        
         try {
             String mensaje;
             if (req.getPathInfo() != null) {
@@ -37,7 +37,7 @@ public class DesactivarEmpleadoServlet extends HttpServlet {
                 System.out.println("pathParam = " + pathParam);
                 Empleado empleado = empleadoService.getEmpleadoById(Integer.parseInt(pathParam));
                 mensaje = desactivarService.desactivarEmpleado(empleado);
-                this.sendResponse(resp, mensaje);
+                resp.setStatus(HttpServletResponse.SC_OK);
             } else {
                 throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_BAD_REQUEST)
                         .mensaje("Id de Paquete requerido").build();
@@ -49,16 +49,16 @@ public class DesactivarEmpleadoServlet extends HttpServlet {
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR).mensaje(
                             e.getMessage()).build());
         }
-
+        
     }
-
+    
     private void sendResponse(HttpServletResponse resp, Object object) throws IOException {
         resp.setContentType("application/json");
         resp.setStatus(HttpServletResponse.SC_OK);
         PrintWriter out = resp.getWriter();
         out.println(new Gson().toJson(object));
     }
-
+    
     private void sendError(HttpServletResponse resp, PaqueteriaApiException e) throws IOException {
         resp.setContentType("application/json");
         resp.sendError(e.getCodigoError(), e.getMensaje());
