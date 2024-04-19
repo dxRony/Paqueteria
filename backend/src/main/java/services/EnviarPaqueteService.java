@@ -109,10 +109,8 @@ public class EnviarPaqueteService {
                 } else {
                     System.out.println("la ruta esta desactivada");
                 }
-
             }
         }
         System.out.println("XD");
     }
-
 }

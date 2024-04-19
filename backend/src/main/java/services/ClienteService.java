@@ -43,6 +43,8 @@ public class ClienteService {
         if (cliente.getNit() <= 0) {
             throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_BAD_REQUEST).mensaje("El nit no puede ser menor o igual a cero").build();
         }
+        cliente.setIdSistema(1);
+        cliente.setActivo(true);
         return clienteDB.crear(cliente);
     }
 

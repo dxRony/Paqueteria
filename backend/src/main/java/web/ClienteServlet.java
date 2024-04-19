@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Cliente;
 import services.ClienteService;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -24,6 +25,7 @@ import util.PaqueteriaApiException;
 public class ClienteServlet extends HttpServlet {
 
     private ClienteService clienteService = new ClienteService();
+    private GsonUtils<Cliente> gsonCliente = new GsonUtils<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//obtenerRecurso
@@ -51,9 +53,13 @@ public class ClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//guardar/crear recurso
 
         try {
-            Gson gson = new Gson();
-            Cliente cliente = gson.fromJson(req.getReader(), Cliente.class);
-            this.sendResponse(resp, clienteService.crearCliente(cliente));
+            Cliente clienteRecibido = gsonCliente.readFromJson(req, Cliente.class);
+            System.out.println("cliente recibido" + clienteRecibido.toString());
+            
+            Cliente clienteCreado = clienteService.crearCliente(clienteRecibido);
+            resp.setStatus(HttpServletResponse.SC_OK);
+            gsonCliente.sendAsJson(resp, clienteCreado);
+            System.out.println("cliente creado" + clienteCreado);
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

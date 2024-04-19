@@ -16,6 +16,10 @@ export class PaqueteService {
         return this.http.get<Paquete[]>(`${this.url}/paquetes`);
     }
 
+    getPaquetesSinRecoger(){
+        return this.http.get<Paquete[]>(`${this.url}/paquetesSinRecoger`)
+    }
+
     getPaqueteById(id: number) {
         return this.http.get<Paquete>(`${this.url}/paquetes/${id}`);
     }
@@ -34,6 +38,9 @@ export class PaqueteService {
 
     operarPaquete(idPaquete: number, tiempo: number) {
         return this.http.get<Paquete>(`${this.url}/operarPaquete?parametros=${idPaquete}_${tiempo}`);
+    }
 
+    retirarPaquete(idPaquete: number, fecha: string) {
+        return this.http.get<Paquete>(`${this.url}/recogerPaquete?parametros=${idPaquete}_${fecha}`)
     }
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Paquete;
 import services.PaqueteService;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -24,15 +25,27 @@ import util.PaqueteriaApiException;
 public class PaqueteServlet extends HttpServlet {
 
     private PaqueteService paqueteService = new PaqueteService();
+    private GsonUtils<Paquete> gsonPaquete = new GsonUtils<>();
+    
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//obtenerRecurso
 
         try {
             if (req.getPathInfo() != null) {//acceder a un paquete
+                
+                 String pathParam = req.getPathInfo().replace("/", "");//componiendo pathParam
+                 int idPaquete = Integer.parseInt(pathParam);
 
-                String pathParam = req.getPathInfo().replace("/", "");//componiendo pathParam
-                this.sendResponse(resp, paqueteService.getPaqueteById(Integer.parseInt(pathParam)));
+                
+                
+                Paquete paqueteEnviado = paqueteService.getPaqueteById(idPaquete);
+                 resp.setStatus(HttpServletResponse.SC_OK);
+                 gsonPaquete.sendAsJson(resp, paqueteEnviado);
+                 System.out.println("paquete enviado: " + paqueteEnviado.toString());
+                
+                
+               
             } else {//acceder todos los paquetes
 
                 this.sendResponse(resp, paqueteService.getPaquetes());
@@ -50,11 +63,13 @@ public class PaqueteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//guardar/crear recurso
 
         try {
-            Gson gson = new Gson();
-            Paquete paquete = gson.fromJson(req.getReader(), Paquete.class);
-            this.sendResponse(resp, paqueteService.crearPaquete(paquete));
-        } catch (PaqueteriaApiException e) {
-            this.sendError(resp, e);
+            Paquete paqueteRecibido = gsonPaquete.readFromJson(req, Paquete.class);
+            System.out.println("paquete recibido: " + paqueteRecibido.toString());
+            Paquete paqueteCreado = paqueteService.crearPaquete(paqueteRecibido);
+            resp.setStatus(HttpServletResponse.SC_OK);
+            gsonPaquete.sendAsJson(resp, paqueteCreado);
+
+            System.out.println(paqueteRecibido.toString());
         } catch (Exception e) {
             this.sendError(resp, PaqueteriaApiException.builder()
                     .codigoError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)

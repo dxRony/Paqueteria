@@ -1,1 +1,31 @@
-<p>listado-arecoger works!</p>
+<br>
+<br>
+<h2 class="titulo">Listado de paquetes a recoger</h2>
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>IdPaquete</th>
+            <th>IdRuta</th>
+            <th>NitCliente</th>
+            <th>IdDestino</th>
+            <th>Tiempo</th>
+            <th>Peso</th>
+            <th>PrecioEnvio</th>            
+            <th>PrecioIngreso</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(paquete of paquetes; track paquete.id){
+        <tr>
+            <td>{{paquete.id}}</td>
+            <td>{{paquete.idRuta}}</td>
+            <td>{{paquete.nitCliente}}</td>
+            <td>{{paquete.idDestino}}</td>
+            <td>{{paquete.tiempo}} hrs</td>
+            <td>{{paquete.peso}} lbs</td>
+            <td>Q.{{paquete.precioEnvio}}.00</td>            
+            <td>Q.{{paquete.precioIngreso}}.00</td>
+        </tr>
+        }
+    </tbody>
+</table>

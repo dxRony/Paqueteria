@@ -13,12 +13,10 @@
     <select class="form-select" aria-label="Default select example" (change)="getSelect($event)">
         <option value="0" selected>Selecciona una de las opciones disponibles</option>
         <option value="1">Registrar Ingreso De Paquete</option>
-        <option value="2">Registrar Llegada De Paquete</option>
-        <option value="3">Registrar Retiro De Paquete</option>
-        <option value="4">Generar Factura</option>
-        <option value="5">Crear Cliente</option>
-        <option value="6">Ver Listado De Paquetes Llegados A Destino Sin Recoger</option>
-        <option value="7">Consultar Ubicación De Paquete</option>
+        <option value="2">Registrar Retiro De Paquete</option>
+        <option value="3">Crear Cliente</option>
+        <option value="4">Ver Listado De Paquetes Llegados A Destino Sin Recoger</option>
+        <option value="5">Consultar Ubicación De Paquete</option>
     </select>
 </div>
 
@@ -32,21 +30,15 @@
         <app-ingreso-paquete></app-ingreso-paquete>
     }
     @case (2) {
-        <app-llegada-paquete></app-llegada-paquete>
-    }
-    @case (3) {
         <app-retiro-paquete></app-retiro-paquete>
     }
-    @case (4) {
-        <app-generar-factura></app-generar-factura>
-    }
-    @case (5) {
+    @case (3) {
         <app-crear-cliente></app-crear-cliente>
     }
-    @case (6) {
+    @case (4) {
         <app-listado-arecoger></app-listado-arecoger>
     }
-    @case (7) {
+    @case (5) {
         <app-ubicacion-paquete></app-ubicacion-paquete>
     }
 }

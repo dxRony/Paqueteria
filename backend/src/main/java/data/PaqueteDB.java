@@ -18,7 +18,7 @@ import model.Paquete;
  */
 public class PaqueteDB {
 
-    public Paquete crear(Paquete paquete) {
+    public Paquete crear1(Paquete paquete) {
         String query = "INSERT INTO Paquete (idRuta, nitCliente, idDestino,  tiempo, peso, precioEnvio, ingresado, recogido, precioPLibra, enRuta, precioIngreso) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
@@ -45,7 +45,38 @@ public class PaqueteDB {
             }
             return null;
         } catch (SQLException e) {
-            System.out.println("error");
+            System.out.println("error" + e);
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Paquete crear(Paquete paquete) {
+        String query = "INSERT INTO Paquete (nitCliente, idDestino, tiempo, peso, precioEnvio, ingresado, recogido, precioPLibra, enRuta, precioIngreso) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement statement = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, paquete.getNitCliente());
+            statement.setInt(2, paquete.getIdDestino());
+            statement.setInt(3, paquete.getTiempo());
+            statement.setInt(4, paquete.getPeso());
+            statement.setInt(5, paquete.getPrecioEnvio());
+            statement.setBoolean(6, paquete.isIngresado());
+            statement.setBoolean(7, paquete.isRecogido());
+            statement.setInt(8, paquete.getPrecioPLibra());
+            statement.setBoolean(9, paquete.isEnRuta());
+            statement.setInt(10, paquete.getPrecioIngreso());
+            statement.execute();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (generatedKeys.next()) {
+                paquete.setId(generatedKeys.getInt(1));
+                System.out.println("paquete creado");
+                return paquete;
+            }
+            return null;
+        } catch (SQLException e) {
+            System.out.println("error" + e);
             throw new RuntimeException(e);
         }
     }

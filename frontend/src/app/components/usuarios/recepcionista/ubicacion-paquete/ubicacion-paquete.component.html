@@ -3,13 +3,13 @@
 
 <div class="form">
     <h3 class="h31">Consulta La Ubicación De Un Paquete</h3>
-    <form class="g-3">
+    <form class="g-3" (submit)="onSubmit()">
         <div class="col-md-6">
             <label class="form-label">Paquete:</label>
-            <input type="number" class="form-control" id="idPaquete" min="1">
+            <input type="number" class="form-control" id="idPaquete" min="1" name="idPaquete" [(ngModel)]="formData.ipPaquete" required>
         </div>
         <div class="col-12">
-            <button type="submit" class="btnConsultar">Consultar</button>
+            <button (click)="obtenerPaquete()" type="submit" class="btnConsultar">Consultar</button>
         </div>
     </form>
 </div>

@@ -57,4 +57,10 @@ public class Cliente {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{" + "nit=" + nit + ", idSistema=" + idSistema + ", activo=" + activo + ", nombre=" + nombre + '}';
+    }
+
+    
 }
