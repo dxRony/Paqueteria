@@ -15,6 +15,10 @@ export class RutaService {
         return this.http.get<Ruta[]>(`${this.url}/rutas`);
     }
 
+    getReporte4(){
+        return this.http.get<Ruta[]>(`${this.url}/reporte4`)
+    }
+
     getRutaById(id: number) {
         return this.http.get<Ruta>(`${this.url}/rutas/${id}`);
     }

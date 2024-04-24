@@ -57,6 +57,8 @@ public class RecogerPaqueteService {
             factura.setPrecioIngreso(precioIngreso);
             factura.setTotal(totalEnvio);
             System.out.println("totalEnvio = " + totalEnvio);
+            factura.setIdPaquete(idPaquete);
+            System.out.println("idPaquete = " + idPaquete);
             facturaService.crearFactura(factura);//creando factura
         } else {
             System.out.println("el paquete ya fue recogido anteriormente");

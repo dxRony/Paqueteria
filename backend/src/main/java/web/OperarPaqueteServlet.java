@@ -52,6 +52,7 @@ public class OperarPaqueteServlet extends HttpServlet {
 
             mensaje = operarPaqueteService.operarPaquete(idPaquete, tiempo);
 
+            System.out.println("mensaje = " + mensaje);
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);

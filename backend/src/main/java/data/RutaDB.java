@@ -98,6 +98,29 @@ public class RutaDB {
             throw new RuntimeException(e);
         }
     }
+    
+    public List<Ruta> getReporte4(){
+         List<Ruta> rutas = new ArrayList<>();
+        String query = "SELECT * FROM Ruta ORDER BY concurrencia DESC LIMIT 3;";
+
+        try {
+            Statement statement = Conexion.obtenerInstancia().obtenerConexion().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Ruta ruta = new Ruta();
+                ruta.setId(resultSet.getInt("id"));
+                ruta.setIdDestino(resultSet.getInt("idDestino"));
+                ruta.setActiva(resultSet.getBoolean("activa"));
+                ruta.setCantidadTotalPaquetes(resultSet.getInt("cantidadTotalPaquetes"));
+                ruta.setConcurrencia(resultSet.getInt("concurrencia"));
+                rutas.add(ruta);
+            }
+            return rutas;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Ruta getRutaById(int id) {
         String query = "SELECT * FROM Ruta WHERE id = ?;";

@@ -11,28 +11,27 @@ import { Ruta } from '../../../../../model/ruta';
 })
 export class Reporte1Component {
 
-  constructor( private rutaService: RutaService){
+  constructor(private rutaService: RutaService) {
 
   }
 
-  rutas : any;
+  rutas: any;
 
-  ngOnInit(){
+  ngOnInit() {
 
     this.getRutas();
 
   }
 
-  getRutas(){
+  getRutas() {
     this.rutaService.getRutas().subscribe(
-      (rutas: Ruta[])=>{
+      (rutas: Ruta[]) => {
         this.rutas = rutas;
         console.log('nice');
         console.log(rutas);
       }, (error) => {
         console.log('not found :c');
       }
-
     );
   }
 }

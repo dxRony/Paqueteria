@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import model.FacturaPaquete;
-import services.FacturaService;
+import model.Ruta;
+import services.RutaService;
 import util.GsonUtils;
 import util.PaqueteriaApiException;
 
@@ -20,17 +20,17 @@ import util.PaqueteriaApiException;
  *
  * @author ronyrojas
  */
-@WebServlet(name = "Reporte2Servlet", urlPatterns = "/reporte2")
-public class Reporte2Servlet extends HttpServlet {
+@WebServlet(name = "Reporte4Servlet", urlPatterns = "/reporte4")
+public class Reporte4Servlet extends HttpServlet {
 
-    private FacturaService facturaService = new FacturaService();
-    private GsonUtils<FacturaPaquete> gsonReporte = new GsonUtils<>();
+    private RutaService rutaService = new RutaService();
+    private GsonUtils<Ruta> gsonReporte = new GsonUtils<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            List<FacturaPaquete> reporte = facturaService.getReporte2();
+            List<Ruta> reporte = rutaService.getReporte();
 
             resp.setStatus(HttpServletResponse.SC_OK);
             gsonReporte.sendAsJson(resp, reporte);

@@ -1,0 +1,11 @@
+ #tabla {
+     max-width: 900px;
+     width: 100%;
+     margin: 0 auto;
+ }
+
+ .titulo {
+     text-align: center;
+     font-family: sans-serif;
+     color: antiquewhite;
+ }

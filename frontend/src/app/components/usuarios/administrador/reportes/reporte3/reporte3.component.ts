@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Paquete } from '../../../../../model/paquete';
+import { FacturaService } from '../../../../../services/factura.service';
+import { Factura } from '../../../../../model/factura';
 
 @Component({
   selector: 'app-reporte3',
@@ -9,4 +12,24 @@ import { Component } from '@angular/core';
 })
 export class Reporte3Component {
 
+  constructor(private facturaService: FacturaService) {
+
+  }
+
+  facturas: any;
+
+  ngOnInit() {
+    this.getPaquetes();
+  }
+
+  getPaquetes() {
+    this.facturaService.getFacturas().subscribe(
+      (facturas: Factura[]) => {
+        this.facturas = facturas;
+        console.log('nice');
+      }, (error) => {
+        console.log('not found :c');
+      }
+    );
+  }
 }

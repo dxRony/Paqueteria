@@ -1,1 +1,25 @@
-<p>reporte3 works!</p>
+<br>
+<br>
+<h2 class="titulo">Reporte de clientes</h2>
+<table class="table table-success table-striped" id="tabla">
+    <thead>
+        <tr>
+            <th>Id Paquete</th>
+            <th>Nit cliente</th>
+            <th>Costos</th>
+            <th>Ingresos</th>
+            <th>Ganancias</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(factura of facturas; track factura.id){
+        <tr>
+            <td>{{factura.idPaquete}}</td>
+            <td>{{factura.nitCliente}}</td>
+            <td>{{factura.precioEnvio}}</td>
+            <td>{{factura.precioIngreso}}</td>
+            <td>{{factura.total}}</td>
+        </tr>
+        }
+    </tbody>
+</table>

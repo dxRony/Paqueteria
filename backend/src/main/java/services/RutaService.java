@@ -24,6 +24,10 @@ public class RutaService {
     public List<Ruta> getRutas() {
         return rutaDB.getRutas();
     }
+    
+    public List<Ruta> getReporte(){
+        return rutaDB.getReporte4();
+    }
 
     public Ruta getRutaById(Integer id) throws PaqueteriaApiException {
         if (id == null) {//si no hay id en la peticion

@@ -18,14 +18,16 @@ public class Factura {
     private Date fecha;
     private int precioIngreso;
     private int precioEnvio;
+    private int idPaquete;
 
-    public Factura(int id, int nitCliente, int total, Date fecha, int precioIngreso, int precioEnvio) {
+    public Factura(int id, int nitCliente, int total, Date fecha, int precioIngreso, int precioEnvio, int idPaquete) {
         this.id = id;
         this.nitCliente = nitCliente;
         this.total = total;
         this.fecha = fecha;
         this.precioIngreso = precioIngreso;
         this.precioEnvio = precioEnvio;
+        this.idPaquete = idPaquete;
     }
 
     public Factura() {
@@ -79,4 +81,17 @@ public class Factura {
         this.precioEnvio = precioEnvio;
     }
 
+    public int getIdPaquete() {
+        return idPaquete;
+    }
+
+    public void setIdPaquete(int idPaquete) {
+        this.idPaquete = idPaquete;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" + "id=" + id + ", nitCliente=" + nitCliente + ", total=" + total + ", fecha=" + fecha + ", precioIngreso=" + precioIngreso + ", precioEnvio=" + precioEnvio + ", idPaquete=" + idPaquete + '}';
+    }
+    
 }

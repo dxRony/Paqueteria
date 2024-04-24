@@ -162,7 +162,7 @@ public class PaqueteDB {
     public List<FacturaPaquete> getReporte2(){
         
         List<FacturaPaquete> reporte = new ArrayList<>();
-        String query="SELECT P.idRuta, F.nitCliente, F.fecha, F.total, P.precioEnvio, P.precioIngreso FROM Factura F INNER JOIN Paquete P ON F.nitCliente = P.nitCliente WHERE P.idRuta IS NOT NULL";
+        String query="SELECT P.idRuta, F.nitCliente, F.fecha, F.total, P.precioEnvio, P.precioIngreso FROM Factura F INNER JOIN Paquete P ON F.nitCliente = P.nitCliente WHERE P.recogido = true";
         
         try {
             Statement statement = Conexion.obtenerInstancia().obtenerConexion().createStatement();
