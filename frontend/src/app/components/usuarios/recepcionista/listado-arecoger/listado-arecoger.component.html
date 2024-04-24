@@ -1,7 +1,7 @@
 <br>
 <br>
 <h2 class="titulo">Listado de paquetes a recoger</h2>
-<table class="table table-success table-striped">
+<table id="tabla" class="table table-success table-striped">
     <thead>
         <tr>
             <th>IdPaquete</th>
@@ -10,8 +10,8 @@
             <th>IdDestino</th>
             <th>Tiempo</th>
             <th>Peso</th>
-            <th>PrecioEnvio</th>            
-            <th>PrecioIngreso</th>
+            <th>Precio de envio</th>
+            <th>Precio de ingreso</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
             <td>{{paquete.idDestino}}</td>
             <td>{{paquete.tiempo}} hrs</td>
             <td>{{paquete.peso}} lbs</td>
-            <td>Q.{{paquete.precioEnvio}}.00</td>            
+            <td>Q.{{paquete.precioEnvio}}.00</td>
             <td>Q.{{paquete.precioIngreso}}.00</td>
         </tr>
         }

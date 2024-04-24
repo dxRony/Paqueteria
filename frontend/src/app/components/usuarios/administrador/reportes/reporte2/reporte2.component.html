@@ -1,1 +1,27 @@
-<p>reporte2 works!</p>
+<br>
+<br>
+<h2 class="titulo">Reporte de ganancias</h2>
+<table id="tabla" class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>Id ruta</th>
+            <th>Nit cliente</th>
+            <th>Fecha</th>
+            <th>Costos</th>
+            <th>Ingresos</th>
+            <th>Ganancias</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(factura of facturas; track facturas.id){
+        <tr>
+            <td>{{factura.idRuta}}</td>
+            <td>{{factura.nitCliente}}</td>
+            <td>{{factura.fecha}}</td>
+            <td>Q.{{factura.precioEnvio}}.00</td>
+            <td>Q.{{factura.precioIngreso}}.00</td>
+            <td>Q.{{factura.total}}.00</td>
+        </tr>
+        }
+    </tbody>
+</table>

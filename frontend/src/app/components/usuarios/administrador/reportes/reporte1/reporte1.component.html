@@ -1,1 +1,25 @@
-<p>reporte1 works!</p>
+<br>
+<br>
+<h2 class="titulo">Reporte de rutas</h2>
+<table class="table table-success table-striped" id="tabla">
+    <thead>
+        <tr>
+            <th>Id ruta</th>
+            <th>Id destino</th>
+            <th>Activa</th>
+            <th>Paquetes en ruta</th>
+            <th>Paquetes salidos en ruta</th>            
+        </tr>
+    </thead>
+    <tbody>
+        @for(ruta of rutas; track ruta.id){
+        <tr>
+            <td>{{ruta.id}}</td>
+            <td>{{ruta.idDestino}}</td>
+            <td>{{ruta.activa}}</td>
+            <td>{{ruta.cantidadTotalPaquetes}}</td>
+            <td>{{ruta.concurrencia}}</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -5,9 +5,11 @@
 package services;
 
 import data.FacturaDB;
+import data.PaqueteDB;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Factura;
+import model.FacturaPaquete;
 import util.PaqueteriaApiException;
 
 /**
@@ -17,6 +19,7 @@ import util.PaqueteriaApiException;
 public class FacturaService {
 
     private FacturaDB facturaDB = new FacturaDB();
+    private PaqueteDB paqueteDB = new PaqueteDB();
 
     public List<Factura> getFacturas() {
         return facturaDB.getFacturas();
@@ -41,6 +44,11 @@ public class FacturaService {
             throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_BAD_REQUEST).mensaje("Complete los campos").build();
         }
         return facturaDB.crear(factura);
+    }
+    
+    public List<FacturaPaquete> getReporte2(){
+        return paqueteDB.getReporte2();
+        
     }
 
     public Factura actualizarFactura(Factura factura) throws PaqueteriaApiException {

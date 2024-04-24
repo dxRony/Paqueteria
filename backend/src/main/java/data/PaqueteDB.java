@@ -4,12 +4,14 @@
  */
 package data;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.FacturaPaquete;
 import model.Paquete;
 
 /**
@@ -155,6 +157,32 @@ public class PaqueteDB {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public List<FacturaPaquete> getReporte2(){
+        
+        List<FacturaPaquete> reporte = new ArrayList<>();
+        String query="SELECT P.idRuta, F.nitCliente, F.fecha, F.total, P.precioEnvio, P.precioIngreso FROM Factura F INNER JOIN Paquete P ON F.nitCliente = P.nitCliente WHERE P.idRuta IS NOT NULL";
+        
+        try {
+            Statement statement = Conexion.obtenerInstancia().obtenerConexion().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()){
+                int idRuta = resultSet.getInt("idRuta");
+                int nitCliente = resultSet.getInt("nitCliente");
+                Date fecha = resultSet.getDate("fecha");
+                int total = resultSet.getInt("total");
+                int precioEnvio = resultSet.getInt("precioEnvio");
+                int precioIngreso = resultSet.getInt("precioIngreso");
+                FacturaPaquete facturaPaquete = new FacturaPaquete(idRuta, nitCliente, fecha, total, precioEnvio, precioIngreso);
+                reporte.add(facturaPaquete);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        return reporte;
     }
 
     public List<Paquete> getPaquetesBodega() {

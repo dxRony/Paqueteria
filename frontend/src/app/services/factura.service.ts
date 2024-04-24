@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Factura } from "../model/factura";
+import { FacturaPaquete } from "../model/facturaPaquete";
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,10 @@ export class FacturaService{
         return this.http.get<Factura[]>(`${this.url}/facturas`);
     }
 
+    getReporte2(){
+        return this.http.get<FacturaPaquete[]>(`${this.url}/reporte2`);
+    }
+
     getFacturaById(id: number) {
         return this.http.get<Factura>(`${this.url}/facturas/${id}`);
     }
@@ -24,11 +29,11 @@ export class FacturaService{
     }
 
     actualizarFactura(factura: Factura) {
-        return this.http.put<Factura>(`${this.url}/factura`, factura);
+        return this.http.put<Factura>(`${this.url}/facturas`, factura);
     }
 
     eliminarFactura(id: number) {
-        return this.http.delete<Factura>(`${this.url}/factura/${id}`);
+        return this.http.delete<Factura>(`${this.url}/facturas/${id}`);
     }
 
 }
