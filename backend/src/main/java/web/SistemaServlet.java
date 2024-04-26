@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Sistema;
 import services.SistemaService;
+import util.GsonUtils;
 import util.PaqueteriaApiException;
 
 /**
@@ -24,6 +25,7 @@ import util.PaqueteriaApiException;
 public class SistemaServlet extends HttpServlet {
 
     private SistemaService sistemaService = new SistemaService();
+    private GsonUtils<Sistema> gsonSistema = new GsonUtils<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//obtenerRecurso
@@ -66,9 +68,17 @@ public class SistemaServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Gson gson = new Gson();
-            Sistema sistema = gson.fromJson(req.getReader(), Sistema.class);
-            this.sendResponse(resp, sistemaService.actualizarSistema(sistema));
+//            Gson gson = new Gson();
+//            Sistema sistema = gson.fromJson(req.getReader(), Sistema.class);
+//            this.sendResponse(resp, sistemaService.actualizarSistema(sistema));
+            Sistema sistemaRecibido = gsonSistema.readFromJson(req, Sistema.class);
+            System.out.println("sistemaRecibido = " + sistemaRecibido.toString());
+            
+            Sistema sistemaNuevo = sistemaService.actualizarSistema(sistemaRecibido);
+            System.out.println("sistemaNuevo = " + sistemaNuevo.toString());
+            resp.setStatus(HttpServletResponse.SC_OK);
+            gsonSistema.sendAsJson(resp, sistemaNuevo);
+            
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

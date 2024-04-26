@@ -45,9 +45,7 @@ public class SistemaService {
 
     public Sistema actualizarSistema(Sistema sistema) throws PaqueteriaApiException {
 
-        if (sistema == null) {//si no existe el sistema en la DB
-            throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_NOT_FOUND).mensaje("El sistema no existe").build();
-        }
+        sistema.setId(1);
         if (sistema.getPrecioPLibra() == 0) {
             Sistema sistemaTmp = sistemaDB.getSistemaById(sistema.getId());
             sistema.setPrecioPLibra(sistemaTmp.getPrecioPLibra());

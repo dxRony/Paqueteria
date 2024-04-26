@@ -48,6 +48,17 @@ public class PuntoDeControlService {
         if (punto == null) {//si no existe el punto en la DB
             throw PaqueteriaApiException.builder().codigoError(HttpServletResponse.SC_NOT_FOUND).mensaje("El punto no existe").build();
         }
+        PuntoDeControl puntoTmp = puntoDB.getPuntoDeControlById(punto.getId());
+        if (punto.getIdRuta() == 0) {
+            punto.setIdRuta(puntoTmp.getIdRuta());
+        }
+        if (punto.getIdEmpleado() == 0) {
+            punto.setIdEmpleado(puntoTmp.getIdEmpleado());
+        }
+        punto.setLibre(puntoTmp.isLibre());
+        if (punto.getCantidadMaximaPaquetes()==0) {
+            punto.setCantidadMaximaPaquetes(puntoTmp.getCantidadMaximaPaquetes());
+        }
         return puntoDB.actualizar(punto);
     }
 

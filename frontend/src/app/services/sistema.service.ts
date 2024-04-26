@@ -7,7 +7,7 @@ import { Sistema } from "../model/sistema";
     providedIn: 'root'
 })
 
-export class SistemaSerice{
+export class SistemaService{
 
     url: string = 'http://localhost:8080/PaqueteriaApi';
 

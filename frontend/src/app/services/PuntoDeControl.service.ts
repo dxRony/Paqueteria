@@ -28,8 +28,6 @@ export class PuntoDeControlService {
     }
 
     eliminarPuntoDeControl(idRuta: number, idPuntoDeControl: number) {
-        console.log('idRuta = '+idRuta);
-        console.log('idPuntoDeControl'+ idPuntoDeControl);
         return this.http.delete<PuntoDeControl>(`${this.url}/quitarPuntos?parametros=${idRuta}_${idPuntoDeControl}`);
     }
 }

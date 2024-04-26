@@ -84,7 +84,7 @@ public class PuntoDeControlServlet extends HttpServlet {
             }
             puntoRecibido.setLibre(true);
             PuntoDeControl puntoCreado = puntoService.crearPuntoDeControl(puntoRecibido);
-            
+
             gsonPunto.sendAsJson(resp, puntoCreado);
             resp.setStatus(HttpServletResponse.SC_OK);
             System.out.println("punto enviado = " + puntoCreado.toString());
@@ -113,9 +113,17 @@ public class PuntoDeControlServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {//modficar Recurso
         try {
-            Gson gson = new Gson();
-            PuntoDeControl punto = gson.fromJson(req.getReader(), PuntoDeControl.class);
-            this.sendResponse(resp, puntoService.actualizarPuntoDeControl(punto));
+//            Gson gson = new Gson();
+//            PuntoDeControl punto = gson.fromJson(req.getReader(), PuntoDeControl.class);
+//            this.sendResponse(resp, puntoService.actualizarPuntoDeControl(punto));
+            PuntoDeControl puntoRecibido = gsonPunto.readFromJson(req, PuntoDeControl.class);
+            System.out.println("puntoRecibido = " + puntoRecibido.toString());
+            
+            PuntoDeControl puntoNuevo = puntoService.actualizarPuntoDeControl(puntoRecibido);
+            System.out.println("puntoNuevo = " + puntoNuevo.toString());
+            resp.setStatus(HttpServletResponse.SC_OK);
+            gsonPunto.sendAsJson(resp, puntoNuevo);
+            
         } catch (PaqueteriaApiException e) {
             this.sendError(resp, e);
         } catch (Exception e) {

@@ -29,7 +29,7 @@ export class DesactivarRutaComponent {
   });
 
   onSubmit(){
-    console.log('contenido : ' + this.formData);
+    console.log('contenido : ' + this.formData.idRuta);
   }
 
   desactivarRuta(){
